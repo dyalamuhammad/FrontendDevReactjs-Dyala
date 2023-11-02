@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import FilterNav from './FilterNav';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import RestaurantCard from './RestaurantCard';
+import DetailView from './DetailView';
+import { useState } from 'react';
+
+
 
 function App() {
+  const [restaurants, setRestaurants] = useState([])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <FilterNav />
+        <Link to='/' className='judul'><h3>All Restaurant</h3></Link>
+        {/* <h1 className='judul' onclick="window.location = '/'">Restaurant List</h1> */}
+        <Routes>
+          <Route path="/detail/:id" element={<DetailView restaurants={restaurants} />}/>
+          <Route path="/" element={<RestaurantCard restaurants={restaurants} setRestaurants={setRestaurants} />}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
